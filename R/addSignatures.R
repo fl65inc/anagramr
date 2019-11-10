@@ -7,22 +7,15 @@
 # words <- c("silo", "Lois", "oils", "soil", "risen", "siren")
 # signatures <- c("ilos", "ilos", "ilos", "ilos", "einrs", "einrs")
 
-#word_df <- data.frame(words, signatures, stringsAsFactors = FALSE)
-
-# 2. HOW DO WE GROUP BY SIGNATURE? (THIS KINDA WORKS)
-# tapply(word_df$words, word_df$signatures, print)
-
-# 3. HOW DO WE EXTRACT ONE SET OF ANAGRAMS?
-# subset(word_df$words, word_df$signatures == "ilos")
-
-
-
 addSignatures <- function ( 
   words_df
   ) {
-  signatures <- character (nrow(words_df))
-  signatures <- unlist(lapply(words_df$words, createSignature))
-  words_df$signatures <- signatures
+
+  for (i in 1:nrow(words_df)) { # for every row
+    word <- words_df[i, 'words']
+    signature <- createSignature(word)
+    words_df[i, "signature"] <- signature
+    }
   
   return(words_df)
 }
