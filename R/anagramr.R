@@ -1,7 +1,10 @@
 # anagramr.R
 
+library(data.table)
+
 anagramr <- function () {
-words_df <- read.csv("dict.txt", col.names = c("words"),header = FALSE,stringsAsFactors = FALSE, encoding = "UTF-8")
+
+words_df <- fread("dict.txt", col.names = c("words"),header = FALSE,stringsAsFactors = FALSE, encoding = "UTF-8")
     
 words <- words_df$words
 
@@ -14,4 +17,5 @@ sorted_signatures <- lapply(signatures, function(x) {paste0(x[order(x)], collaps
 words_df$signatures <- sorted_signatures
 
 return(words_df)
+
 }
