@@ -10,12 +10,10 @@
 addSignatures <- function ( 
   words_df
   ) {
-
-  for (i in 1:nrow(words_df)) { # for every row
-    word <- words_df[i, 'words']
-    signature <- createSignature(word)
-    words_df[i, "signature"] <- signature
-    }
+  words <- words_df$words
+  signatures <- vector(mode = "list", length(words)) # empty vector
+  signatures <- sapply(words, createSignature)
+  words_df$signatures <- signatures
   
   return(words_df)
 }
