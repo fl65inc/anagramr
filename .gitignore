@@ -48,3 +48,4 @@ rsconnect/
 # RStudio stuff
 *.Rproj
 
+*.ipynb_checkpoints/
