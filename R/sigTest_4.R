@@ -1,6 +1,8 @@
-# 1st implementation of signature generation in R
+# 4th implementation of signature generation in R, using stringi::stri_sort
 
-sigTest_1 <- function () {
+library(stringi)
+
+sigTest_4 <- function () {
   word_df <- read.csv("dict.txt", 
                       col.names = c("word"),
                       header = FALSE,
@@ -11,7 +13,5 @@ sigTest_1 <- function () {
   # previous attempt.  Slow.
   word_df$signature <- lapply(word_df$word,
                               function(x)
-                              {paste0(sort(unlist(strsplit(tolower(x), ""))), collapse = "")})
-  
-  #print(word_df$word[word_df$signature == 'ilos'])
+                              {paste0(stri_sort(unlist(strsplit(tolower(x), ""))), collapse = "")})
 }
