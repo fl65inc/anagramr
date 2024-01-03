@@ -51,10 +51,12 @@ So here we've done something interesting; it's a Quarto doc that contains an  co
 
 ### Step 1.  `requirements.txt`
 
-Any Python project is going to need a `requirements.txt` file.  In the case of this project, it's very minimal...
+Any Python project is going to need a `requirements.txt` file.  In the case of this project, it can be created in a bash terminal like this:
 
 ```
-re
+pip3 install pipreqs
+pip3 install pip-tools
+
 ```
 
 ...that's it!
