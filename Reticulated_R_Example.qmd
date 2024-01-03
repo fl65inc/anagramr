@@ -1,0 +1,76 @@
+---
+title: "Reticulated R Example"
+author: "Roger Andre"
+date: "Jan 2, 2024"
+format: 
+  html:
+    code-fold: true
+    theme: flatly
+execute: 
+  enabled: true
+---
+  
+## R Code with Python
+
+Here's some R Code which uses `reticulate` to run Python code
+
+```{r}
+#| echo: true
+library(reticulate)
+
+source_python("pyGetAnagrams.py")
+
+anagrams <- getAnagrams("dict.txt")
+
+print(anagrams[['ilos']])
+```
+
+The contents of the "pyGetAnagrams.py" file look like this:
+
+```{html}
+def getAnagrams(file_name):
+  import re
+  # Read in the words
+  with open(file_name) as word_file: 
+    word_data = word_file.readlines()
+  # Process all the words into their root signatures and matches 
+  sig_dict = {}  
+  for word in word_data:
+    word = word.strip() 
+    word = word.lower()
+    signature = ''.join(sorted(word))
+    if signature not in sig_dict: 
+      sig_dict[signature] = [word]
+    else:
+      sig_dict[signature].append(word)
+  return sig_dict
+```
+## How do we publish this to Connect?
+
+So here we've done something interesting; it's a Quarto doc that contains an  code-block or R which sources a Python function.  How do we deploy this to a Connect server?  It's got both R and Python in it, so what special instructions do we need to give?
+
+### Step 1.  `requirements.txt`
+
+Any Python project is going to need a `requirements.txt` file.  In the case of this project, it's very minimal...
+
+```
+re
+```
+
+...that's it!
+
+### Step 2. `Manifest.json`
+
+Because it's a Quarto doc, we also need to create a `Manifest.json` file.  We can do that in Rstudio using the following command, in R:
+
+```
+rsconnect::writeManifest(
+appFiles = c("dict.txt","pyGetAnagrams.py","requirements.txt","Reticulated_R_Example.qmd"),
+appPrimaryDoc = "Reticulated_R_Example.qmd",
+quarto = TRUE)
+```
+
+### Step 3. Push to Github
+
+### Step 4.  Do a Git publish from Connect
+
