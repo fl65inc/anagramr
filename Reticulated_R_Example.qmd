@@ -57,10 +57,11 @@ Any Python project is going to need a `requirements.txt` file.  In the case of t
 pip3 install pipreqs
 pip3 install pip-tools
 
+pipreqs --savepath=requirements.in && pip-compile
 ```
 
-...that's it!
-
+This will create both a `requirements.txt` and a `requirements.in`. The `.in` file is an intermediate one and can be ignored.
+ 
 ### Step 2. `Manifest.json`
 
 Because it's a Quarto doc, we also need to create a `Manifest.json` file.  We can do that in Rstudio using the following command, in R:
